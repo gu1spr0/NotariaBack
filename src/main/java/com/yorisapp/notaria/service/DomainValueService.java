@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DomainValueService {
     List<DomainValueQueryDto> getAllDomainValueByState(String pState);
-    DomainValueQueryDto getAllDomainValueByIdAndState(long pDomainValueId, String pState);
+    DomainValueQueryDto getDomainValueByIdAndState(long pDomainValueId, String pState);
     DomainValueQueryDto getDomainValueByCodeAndState(String pCode, String pState);
     DomainValueQueryDto getDomainValueByDomainAndCodeAndState(String pDomainName, String pCode, String pState);
 

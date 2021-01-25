@@ -38,14 +38,10 @@ public class DomainValueServiceImpl implements DomainValueService {
     }
 
     @Override
-    public DomainValueQueryDto getAllDomainValueByIdAndState(long pDomainValueId, String pState) {
+    public DomainValueQueryDto getDomainValueByIdAndState(long pDomainValueId, String pState) {
         if(Strings.isNullOrEmpty(pState)){
             Object[] obj = {pState};
             throw Message.GetBadRequest(MessageDescription.stateNotValid, obj);
-        }
-        if(pDomainValueId>0){
-            Object[] obj = {pDomainValueId};
-            throw Message.GetBadRequest(MessageDescription.objectNull, obj);
         }
         DomainValue vDomainValue = domainValueRepository.getDomainValueByIdAndState(pDomainValueId, pState).orElse(null);
 

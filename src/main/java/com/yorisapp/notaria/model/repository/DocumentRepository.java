@@ -14,6 +14,6 @@ import java.util.Optional;
 @Repository
 @Qualifier("DocumentRepository")
 public interface DocumentRepository extends CrudRepository<Document, Long> {
-    @Query(value = "select case when (d.correlative is null) then 1 else d.correlative+1 end from Document d")
-    long getCorrelative();
+    /*@Query(value = "select case when (d.correlative is null) then 1 else d.correlative+1 end from Document d")
+    long getCorrelative();*/
 }

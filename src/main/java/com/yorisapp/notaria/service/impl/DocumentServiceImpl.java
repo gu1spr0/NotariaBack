@@ -1,6 +1,7 @@
 package com.yorisapp.notaria.service.impl;
 
 import com.yorisapp.notaria.model.entity.Document;
+import com.yorisapp.notaria.model.repository.DocumentRepository;
 import com.yorisapp.notaria.service.DocumentService;
 import com.yorisapp.notaria.service.DomainValueService;
 import com.yorisapp.notaria.service.dto.CommonResponseDto;
@@ -15,10 +16,13 @@ import java.io.*;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
+    private final DocumentRepository documentRepository;
     private final DomainValueService domainValueService;
 
 
-    public DocumentServiceImpl(DomainValueService domainValueService){
+    public DocumentServiceImpl(DocumentRepository documentRepository,
+                               DomainValueService domainValueService){
+        this.documentRepository = documentRepository;
         this.domainValueService = domainValueService;
     }
     @Override
@@ -27,7 +31,7 @@ public class DocumentServiceImpl implements DocumentService {
         Document vDocument = new Document();
         try{
             String vFileName = pFile.getOriginalFilename();
-            String pPath = vDomainValueQueryDto.getCharValue()+File.pathSeparator+vFileName;
+            String pPath = vDomainValueQueryDto.getCharValue()+File.separator+vFileName;
             Upload.saveFile(pFile.getInputStream(),pPath);
         } catch (IOException e) {
             e.printStackTrace();
