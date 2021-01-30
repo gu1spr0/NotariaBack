@@ -19,6 +19,6 @@ public class Role extends BaseConfigurationEntity {
     @Column(name="descripcion", length = 150)
     private String description;
 
-    @OneToMany(mappedBy="role",cascade = CascadeType.ALL)
-    private List<Menu> menuList;
+    /*@OneToMany(mappedBy="role",cascade = CascadeType.ALL)
+    private List<Menu> menuList;*/
 }

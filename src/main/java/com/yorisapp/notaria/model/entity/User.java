@@ -25,7 +25,7 @@ public class User extends BaseConfigurationEntity {
 
     @NotNull(message="El apellido paterno del usuario no puede ser nulo")
     @Column(name="paterno", length = 60)
-    private String lastname1;
+    private String lastname;
 
     @NotNull(message="El apellido materno del usuario no puede ser nulo")
     @Column(name="materno", length = 60)
@@ -43,7 +43,7 @@ public class User extends BaseConfigurationEntity {
     @PrimaryKeyJoinColumn
     private DomainValue domainValue;*/
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Role role;
 
@@ -54,6 +54,6 @@ public class User extends BaseConfigurationEntity {
     @Column(name="grado", length = 20)
     private String grade;
 
-    @OneToMany(mappedBy="user",cascade= CascadeType.ALL)
-    private List<Document> documentList;
+    /*@OneToMany(mappedBy="user",cascade= CascadeType.ALL)
+    private List<Document> documentList;*/
 }
