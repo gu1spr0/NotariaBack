@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("jpaUserDetailService")
+@Service("jpaUserDetailsService")
 public class JpaUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
