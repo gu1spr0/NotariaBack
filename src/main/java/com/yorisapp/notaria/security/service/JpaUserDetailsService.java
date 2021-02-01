@@ -44,6 +44,6 @@ public class JpaUserDetailsService implements UserDetailsService {
         else
             bandera = true;
         //return new User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
-        return new User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
     }
 }

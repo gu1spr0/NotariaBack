@@ -57,7 +57,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception, NoSuchBeanDefinitionException {
-        build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        build.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
         //build.userDetailsService(userDetailsService);
     }
 
