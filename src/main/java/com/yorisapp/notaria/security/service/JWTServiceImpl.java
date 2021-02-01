@@ -26,7 +26,7 @@ public class JWTServiceImpl implements JWTService{
     public static final String HEADER_STRING = "Authorization";
     @Override
     public String create(Authentication auth) throws IOException {
-        String username = ((User) auth.getPrincipal()).getUsername();
+        String username = auth.getName();
         Collection<? extends GrantedAuthority> roles = auth.getAuthorities();
         Claims claims = Jwts.claims();
         claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
