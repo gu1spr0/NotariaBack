@@ -11,14 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = {"com.yorisapp.notaria"})
 @EntityScan(basePackages = {"com.yorisapp.notaria"})
 @SpringBootApplication
-public class NotariaApplication{
-//public class NotariaApplication extends SpringBootServletInitializer {
-
-	/*@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(NotariaApplication.class);
-	}*/
-
+public class NotariaApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(NotariaApplication.class, args);
 	}
