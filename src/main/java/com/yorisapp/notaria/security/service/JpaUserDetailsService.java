@@ -34,7 +34,12 @@ public class JpaUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(Message.GetNotFound(MessageDescription.UsernameNoEncontrado, username).getMessage());
         }
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
+
+        for (Role role : user.getRoleList()){
+            logger.info("Role:".concat(role.getRole()));
+            authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        }
+
         if (authorities.isEmpty()) {
             throw new UsernameNotFoundException(Message.GetNotFound(MessageDescription.UserWithoutRoles, username).getMessage());
         }
@@ -43,7 +48,7 @@ public class JpaUserDetailsService implements UserDetailsService {
             bandera = false;
         else
             bandera = true;
-        //return new User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
+        return new User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
+        //return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), bandera, true, true, true, authorities);
     }
 }

@@ -26,9 +26,8 @@ public class Notary extends BaseConfigurationEntity {
     @Column(name="telefono")
     private Long telephone;
 
-    @OneToOne(cascade= CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Domain domain;
+    @OneToMany(mappedBy="notary",cascade= CascadeType.ALL)
+    private List<User> userList;
 
     @OneToMany(mappedBy="notary",cascade= CascadeType.ALL)
     private List<Repo> repositoryList;

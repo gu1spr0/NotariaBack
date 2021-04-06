@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
             throw Message.GetBadRequest(MessageDescription.stateNotValid, obj);
         }
         List<RoleQueryDto> pRoleQueryDtoList = new ArrayList<>();
-        List<Role> pRoleList = roleRepository.getRoleByState(pState).orElse(null);
+        List<Role> pRoleList = roleRepository.getRolesByState(pState);
         for(Role pRole: pRoleList){
             RoleQueryDto pRoleQueryDto = new RoleQueryDto();
             BeanUtils.copyProperties(pRole, pRoleQueryDto);

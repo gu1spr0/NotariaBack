@@ -11,6 +11,8 @@ public class Message {
         put(MessageDescription.stateNotValid, new ExceptionResponse("4","El estado consultado %s no es permitido.", "detalle -_-"));
         put(MessageDescription.tokenNullOrEmpty, new ExceptionResponse("5", "El tipo de token no puede ser nulo", "detalle -_-"));
         put(MessageDescription.objectNull, new ExceptionResponse("6", "%s no puede ser nulo", "detalle -_-"));
+        put(MessageDescription.PropertyNullOrEmpty, new ExceptionResponse("7", "La propiedad %s con valor %s no puede ser nulo", "detalle -_-"));
+
         // Entitys 101-150
         put(MessageDescription.repeated, new ExceptionResponse("101","Existe un registro activo con el %s: %s", "detalle -_-"));
         put(MessageDescription.notExists, new ExceptionResponse("102","No se encontró %s con el %s: %s", "detalle -_-"));

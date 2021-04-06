@@ -3,9 +3,12 @@ package com.yorisapp.notaria.security.filter;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import com.yorisapp.notaria.security.service.JWTService;
 import com.yorisapp.notaria.security.service.JWTServiceImpl;
-import com.yorisapp.notaria.service.UserService;
+import com.yorisapp.notaria.service.*;
+import com.yorisapp.notaria.service.dto.resource.ResourceGroupLoginQueryDto;
+import com.yorisapp.notaria.service.dto.role.RolePermissionGroupQueryDto;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,11 +31,26 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private AuthenticationManager authenticationManager;
     private JWTService jwtService;
     private UserService userService;
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTService jwtService, UserService userService){
+    private ResourceService resourceService;
+    private PermissionService permissionService;
+    private LogConnectionService logConnectionService;
+    private DomainValueService domainValueService;
+
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   JWTService jwtService,
+                                   UserService userService,
+                                   ResourceService resourceService,
+                                   PermissionService permissionService,
+                                   LogConnectionService logConnectionService,
+                                   DomainValueService domainValueService){
         this.authenticationManager = authenticationManager;
         setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
         this.jwtService = jwtService;
         this.userService = userService;
+        this.resourceService = resourceService;
+        this.permissionService = permissionService;
+        this.logConnectionService = logConnectionService;
+        this.domainValueService = domainValueService;
     }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -79,24 +97,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.addHeader(JWTServiceImpl.HEADER_STRING, JWTServiceImpl.TOKEN_PREFIX + token);
 
-//        List<String> roles = new ArrayList<>();
-        String[] roles = authResult.getAuthorities().stream().map(x -> x.getAuthority()).toArray(String[]::new);
+        String[] roles = authResult.getAuthorities().stream().map(x->x.getAuthority()).toArray(String[]::new);
+        Long[] resources = resourceService.getResourcesByRoles(roles);
+        List<ResourceGroupLoginQueryDto> resourceGroupLoginQueryDtoList = userService.getMenuByResources(resources);
+        List<RolePermissionGroupQueryDto> rolePermissionGroupQueryDtoList = permissionService.getRolePermissionsGroupsByRolesId(roles);
         com.yorisapp.notaria.model.entity.User user = userService.getUserByUserName(((User) authResult.getPrincipal()).getUsername());
-
-
-//        for (GrantedAuthority auth: authResult.getAuthorities()){
-//            String role = auth.getAuthority();
-//            roles.add(role);
-//        }
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("token", token);
         body.put("user", authResult.getPrincipal());
         body.put("name", (user.getName() + " " + user.getLastname()));
         body.put("phone", (user.getCellphone()));
+        body.put("resources", resourceGroupLoginQueryDtoList);
+        body.put("permissions", rolePermissionGroupQueryDtoList);
         body.put("mensaje", String.format("Hola %s, has iniciado sesión con éxito!", ((User)authResult.getPrincipal()).getUsername()) );
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setStatus(200);
         response.setContentType("application/json");
+        //logConnectionService.addConnectionLogin(0);
     }
 
     @Override

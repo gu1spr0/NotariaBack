@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "no_clientes")
-public class Client extends BaseConfigurationEntity {
+public class  Client extends BaseConfigurationEntity {
     @NotNull(message = "El nombre de cliente no puede ser nulo")
     @Column(name = "nombre", length = 60)
     private String name;
@@ -28,8 +28,8 @@ public class Client extends BaseConfigurationEntity {
     private Long ci;
 
     @NotNull(message = "La extension no puede ser nulo")
-    @Column(name = "expedido")
-    private Long exp;
+    @Column(name = "expedido", length = 10)
+    private String exp;
 
     @NotNull(message = "La direccion del cliente no puede ser nulo")
     @Column(name = "direccion", length = 300)
@@ -50,6 +50,6 @@ public class Client extends BaseConfigurationEntity {
     @Temporal(TemporalType.TIME)
     private Date timeProcess;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<DocumentClient> documentClientList;
+    @ManyToMany(mappedBy = "clientList")
+    private List<Document> documentList;
 }

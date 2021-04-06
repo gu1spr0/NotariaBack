@@ -17,7 +17,7 @@ public class BaseConfigurationEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @PastOrPresent(message = "La fecha de alta del registro debe ser actual")
     @NotNull(message = "La fecha de alta del registro no debe ser nula")
@@ -27,21 +27,21 @@ public class BaseConfigurationEntity implements Serializable {
 
     @NotNull(message = "El usuario que dió de alta el registro no debe ser nula")
     @Column(name = "usuario_alta")
-    private String createdBy;
+    private Long createdBy;
 
     @Column(name = "fecha_baja")
     @Temporal(TemporalType.DATE)
     private Date deletedDate;
 
     @Column(name = "usuario_baja")
-    private String deletedBy;
+    private Long deletedBy;
 
     @Column(name = "fecha_modificacion", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date lastModifiedDate;
 
     @Column(name = "usuario_modificacion", nullable = true)
-    private String lastModifiedBy;
+    private Long lastModifiedBy;
 
     @NotNull(message = "El estado no puede ser nulo")
     @Column(name = "estado")
@@ -53,7 +53,7 @@ public class BaseConfigurationEntity implements Serializable {
         if (createdDate == null) {
             createdDate = now;
             //createdBy = Security.getUserOfAuthenticatedUser();
-            createdBy = "superadmin";
+            createdBy = 0L;
             state = Constants.STATE_ACTIVE;
         }
     }
@@ -64,7 +64,7 @@ public class BaseConfigurationEntity implements Serializable {
         lastModifiedDate = new Date();
         if  (deletedDate != null){
             //deletedBy = Security.getUserOfAuthenticatedUser();
-            deletedBy = "superadmin";
+            deletedBy = 0L;
             state = Constants.STATE_DELETED;
         }
     }

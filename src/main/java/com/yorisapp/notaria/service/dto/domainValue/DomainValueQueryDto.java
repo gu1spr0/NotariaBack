@@ -17,4 +17,6 @@ public class DomainValueQueryDto {
     private Date createdDate;
     private String createdBy;
     private String state;
+    private Long domainId;
+    private Date deletedDate;
 }

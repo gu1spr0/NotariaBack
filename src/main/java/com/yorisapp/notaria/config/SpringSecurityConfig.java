@@ -5,7 +5,7 @@ import com.yorisapp.notaria.security.filter.JWTAuthenticationFilter;
 import com.yorisapp.notaria.security.filter.JWTAuthorizationFilter;
 import com.yorisapp.notaria.security.service.JWTService;
 import com.yorisapp.notaria.security.service.JpaUserDetailsService;
-import com.yorisapp.notaria.service.UserService;
+import com.yorisapp.notaria.service.*;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,8 +37,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     private JWTService jwtService;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ResourceService resourceService;
+
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private LogConnectionService logConnectionService;
+
+    @Autowired
+    private DomainValueService domainValueService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,7 +62,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtService, userService))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtService, userService, resourceService, permissionService, logConnectionService, domainValueService))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtService, userService))
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS

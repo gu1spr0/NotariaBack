@@ -12,16 +12,20 @@ import java.util.List;
 @Table(name = "no_dominios")
 public class Domain extends BaseConfigurationEntity {
     @NotNull(message = "El tipo de dominio no debe ser nulo")
-    @Column(name = "tipo", length = 20)
-    private String type;
+    @Column(name = "dom_tipo_dominio", length = 30)
+    private String domainType;
+
+    @NotNull(message = "El codigo de dominio no debe ser nulo")
+    @Column(name = "dom_codigo_dominio", length = 100)
+    private String domainCode;
 
     @NotNull(message = "El nombre de dominio no debe ser nulo")
-    @Column(name = "nombre", length = 100)
-    private String name;
+    @Column(name = "dom_nombre_dominio", length = 100)
+    private String domainName;
 
-    @NotNull(message = "La descripción del dominio no puede ser nulo")
-    @Column(name = "descripcion", length = 300)
-    private String description;
+    @NotNull(message = "La descripcion del dominio no debe ser nulo")
+    @Column(name = "dom_descripcion", length = 300)
+    private String domainDescription;
 
     @OneToMany(mappedBy = "domain",fetch = FetchType.LAZY)
     private List<DomainValue> domainValueList;

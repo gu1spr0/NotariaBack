@@ -23,10 +23,6 @@ public class Repo extends BaseConfigurationEntity {
     @Column(name="descripcion", length = 300)
     private String description;
 
-    /*@ManyToOne
-    @JoinColumn(name="id_dominio")
-    private Domain domain;*/
-
     @ManyToOne
     @JoinColumn(name="id_notaria")
     private Notary notary;

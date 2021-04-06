@@ -39,13 +39,14 @@ public class Document extends BaseConfigurationEntity {
     @JoinColumn(name = "id_repositorio")
     private Repo repository;
 
-    @OneToMany(mappedBy = "document",cascade = CascadeType.ALL)
-    private List<Word> palabraList;
 
-    @OneToMany(mappedBy = "document",cascade = CascadeType.ALL)
-    private List<DocumentClient> documentClientList;
+    @NotNull(message="Ejecutivo encargado del documento no puede ser nulo")
+    @Column(name="ejecutivo")
+    private Long executive;
 
-    @ManyToOne
-    @JoinColumn(name="id_usuario")
-    private User user;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="no_documentos_clientes",
+            joinColumns = @JoinColumn(name="id_documento", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_cliente", referencedColumnName = "id"))
+    private List<Client> clientList;
 }

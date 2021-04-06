@@ -39,21 +39,17 @@ public class User extends BaseConfigurationEntity {
     @Column(name="expedido", length = 10)
     private String exp;
 
-    /*@OneToOne(cascade= CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private DomainValue domainValue;*/
-
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private Role role;
-
     @NotNull(message="El numero de celular no puede ser nulo")
     @Column(name="celular")
     private Long cellphone;
 
-    @Column(name="grado", length = 20)
-    private String grade;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_notaria")
+    private Notary notary;
 
-    /*@OneToMany(mappedBy="user",cascade= CascadeType.ALL)
-    private List<Document> documentList;*/
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="no_usuarios_roles",
+            joinColumns = @JoinColumn(name="uro_usucodigo", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "uro_rolcodigo", referencedColumnName = "id"))
+    private List<Role> roleList;
 }

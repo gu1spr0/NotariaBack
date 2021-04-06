@@ -1,13 +1,16 @@
 package com.yorisapp.notaria.service;
 
-import com.yorisapp.notaria.service.dto.domainValue.DomainValueQueryDto;
+import com.yorisapp.notaria.service.dto.domainValue.*;
 
 import java.util.List;
 
 public interface DomainValueService {
-    List<DomainValueQueryDto> getAllDomainValueByState(String pState);
-    DomainValueQueryDto getDomainValueByIdAndState(long pDomainValueId, String pState);
-    DomainValueQueryDto getDomainValueByCodeAndState(String pCode, String pState);
-    DomainValueQueryDto getDomainValueByDomainAndCodeAndState(String pDomainName, String pCode, String pState);
+    DomainValueQueryPageableDto getDomainValuePageable(Long pDomainId, String pState, int pPage, int pRowsNumber);
+    DomainValueQueryDto addDomainValue(DomainValueAddDto pDomainValueAddDto);
+    void deleteDomainValue(long pDomainValueId);
+    DomainValueQueryDto getDomainValueById(long pDomainValueId);
+    List<DomainValueQuerySelectDto> getDomainValueSelectByDomainCode(String pDomainCode);
+    List<DomainValueQuerySelectDto> getRelation(String pDomainCode, String pCharValue, String pCharValueExtra);
+    List<DomainValueQueryDto> getDomainValuesByDomainCode(String pDomainCode);
 
 }

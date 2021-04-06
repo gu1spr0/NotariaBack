@@ -27,7 +27,7 @@ public class DomainServiceImpl implements DomainService {
             throw Message.GetBadRequest(MessageDescription.stateNotValid, obj);
         }
         List<DomainQueryDto> vDomainQueryDtoList = new ArrayList<>();
-        List<Domain> vDomainList = domainRepository.getDomainByState(pState).orElse(null);
+        List<Domain> vDomainList = domainRepository.getDomainsByState(pState);
         if(vDomainList != null){
 
             for(Domain vDomain : vDomainList){

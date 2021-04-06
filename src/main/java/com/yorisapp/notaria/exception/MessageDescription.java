@@ -7,6 +7,7 @@ public enum MessageDescription {
     validacionCampoVacioNulo,
     tokenNullOrEmpty,
     objectNull,
+    PropertyNullOrEmpty,
 
     // Entitys 101-150
     repeated,
