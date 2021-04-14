@@ -11,9 +11,10 @@ public class Constants {
     public static final String SECRET_KEY="#InnovaitveApp234@#";
     public static final Long TIME_KEY=3600000L;
     //DOMAIN
-    public static final String PATH = "PATH";
+    public static final String PATH_RESOURCES = "PATH_RESOURCES";
+    public static final String DOCUMENT_TYPE = "DOCUMENT_TYPE";
     //DOMAIN VALUE
-    public static final String PATH_DOCUMENT = "PA_01";
+    public static final String PATH_DOCUMENT = "PATH_DOCUMENTS";
 
 
 }

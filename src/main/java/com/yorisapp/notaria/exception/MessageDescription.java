@@ -8,6 +8,7 @@ public enum MessageDescription {
     tokenNullOrEmpty,
     objectNull,
     PropertyNullOrEmpty,
+    DataEmptyOrNull,
 
     // Entitys 101-150
     repeated,

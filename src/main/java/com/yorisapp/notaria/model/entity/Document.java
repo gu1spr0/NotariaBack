@@ -27,13 +27,12 @@ public class Document extends BaseConfigurationEntity {
     @Column(name="correlativo")
     private Integer correlative;
 
-    @NotNull(message="Estado del proceso de tramite no puede ser nulo")
     @Column(name="proceso", length = 20)
     private String process;
 
     @NotNull(message="Tipo de documento no puede ser nulo")
-    @Column(name="tipo", length = 300)
-    private String documentType;
+    @Column(name="tipo")
+    private Long documentType;
 
     @ManyToOne
     @JoinColumn(name = "id_repositorio")

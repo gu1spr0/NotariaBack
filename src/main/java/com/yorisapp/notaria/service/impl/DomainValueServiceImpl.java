@@ -116,6 +116,16 @@ public class DomainValueServiceImpl implements DomainValueService {
     }
 
     @Override
+    public DomainValue getDomainValueByDomainCodeAndCodeValue(String pDomainCode, String pCodeValue, String pState) {
+        DomainValue vDomainValueCity = domainValueRepository.getDomainValueByDomainCodeAndCodeValue(pDomainCode, pCodeValue, pState).orElse(null);
+        if (vDomainValueCity == null) {
+            Object[] obj = {pDomainCode, "codigo valor", pCodeValue};
+            throw Message.GetBadRequest(MessageDescription.notExists, obj);
+        }
+        return vDomainValueCity;
+    }
+
+    @Override
     public List<DomainValueQuerySelectDto> getRelation(String pDomainCode, String pCharValue, String pCharValueExtra) {
         List<DomainValueQuerySelectDto> vDomainValueQuerySelectDtoList = new ArrayList<>();
         List<DomainValue> vDomainValueList;
