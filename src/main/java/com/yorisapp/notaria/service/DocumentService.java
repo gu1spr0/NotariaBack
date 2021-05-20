@@ -1,5 +1,5 @@
 package com.yorisapp.notaria.service;
 
 public interface DocumentService {
-    void uploadDocument();
+    void uploadDocument(String pDocument);
 }
