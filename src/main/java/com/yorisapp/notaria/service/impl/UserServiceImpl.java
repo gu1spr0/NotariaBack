@@ -95,6 +95,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserQueryDto> getUserByState(String pState) {
+        if(Strings.isNullOrEmpty(pState)){
+            throw Message.GetBadRequest(MessageDescription.stateNullOrEmpty);
+        }
+        if(!(pState.equals(Constants.STATE_ACTIVE) || pState.equals(Constants.STATE_INACTIVE) || pState.equals(Constants.STATE_BLOCKED) || pState.equals(Constants.STATE_DELETED))){
+            Object[] obj = {pState};
+            throw Message.GetBadRequest(MessageDescription.stateNotValid, obj);
+        }
+        List<User> vUserList = userRepository.getUsersByState(pState);
+        List<UserQueryDto> vUserQueryDtoList = new ArrayList<>();
+        if(vUserList == null){
+            return vUserQueryDtoList;
+        }
+        for(User vUser : vUserList){
+            UserQueryDto vUserQueryDto = new UserQueryDto();
+            BeanUtils.copyProperties(vUser, vUserQueryDto);
+            vUserQueryDtoList.add(vUserQueryDto);
+        }
+        return vUserQueryDtoList;
+    }
+
+    @Override
     public List<ResourceGroupLoginQueryDto> getMenuByResources(Long[] pResourceIdList) {
         List<LoginResource> vResourceLoginList = loginResourceRepository.getResourcesById(pResourceIdList);
         if (vResourceLoginList.size()>0){

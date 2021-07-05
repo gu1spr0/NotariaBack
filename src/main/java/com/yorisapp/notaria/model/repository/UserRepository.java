@@ -17,6 +17,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Long getCountUsersByState(String pState);
 
     @Query(value = "select u from User u where u.state=?1")
+    List<User> getUsersByState(String pState);
+
+    @Query(value = "select u from User u where u.state=?1")
     List<User> getUsersPageableByState(String pState, Pageable pPageable);
 
     @Query(value = "select u from User u where u.username=?1 and u.deletedDate is null and u.state <> 'BLOQUEADO'")
