@@ -25,4 +25,10 @@ public enum MessageDescription {
     UserWithoutResources,
     UserWithoutPermissions,
     UserAccessDenied,
+
+    //File
+    Base64NotValid,
+    Base64Null,
+    Base64Int,
+    Base64DatosError
 }
