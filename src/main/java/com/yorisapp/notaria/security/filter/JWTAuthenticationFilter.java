@@ -53,8 +53,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.domainValueService = domainValueService;
     }
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
 
         String username = obtainUsername(request);
         String password = obtainPassword(request);
@@ -118,13 +117,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                              AuthenticationException failed) throws IOException, ServletException {
+                                              AuthenticationException failed) {
 
         Map<String, Object> body = new HashMap<String, Object>();
-        body.put("mensaje", "Error de autenticación: username o password incorrecto o usuario bloqueado!");
+        body.put("message", "Username o password incorrecto o usuario bloqueado!");
         body.put("error", failed.getMessage());
 
-        response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+        try {
+            response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         response.setStatus(401);
         response.setContentType("application/json");
     }
